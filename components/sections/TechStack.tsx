@@ -1,12 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import LogoLoop from "@/components/ui/logo-loop";
 
-const technologies = [
-  "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "GSAP", "Three.js", "Node.js", "PostgreSQL", "MongoDB", "GraphQL", "Python"
+const webLogos = [
+  { src: "/icons/html.png", alt: "HTML" },
+  { src: "/icons/css.png", alt: "CSS" },
+  { src: "/icons/js.png", alt: "JavaScript" },
+  { src: "/icons/ts.png", alt: "TypeScript" },
+  { src: "/icons/tailwind.png", alt: "Tailwind CSS" },
+  { src: "/icons/react.png", alt: "React" },
+  { src: "/icons/next.png", alt: "Next.js" },
+];
+
+const progLogos = [
+  { src: "/icons/python.png", alt: "Python" },
+  { src: "/icons/c.png", alt: "C" },
+  { src: "/icons/c++.png", alt: "C++" },
+  { src: "/icons/java.png", alt: "Java" },
+  { src: "/icons/shell.png", alt: "Shell" },
 ];
 
 export default function TechStack() {
@@ -31,27 +45,42 @@ export default function TechStack() {
 
   return (
     <section ref={containerRef} className="py-20 relative overflow-hidden z-10 bg-black/40 backdrop-blur-lg">
-      <div className="container mx-auto px-6 text-center mb-10">
-        <h2 className="text-3xl font-bold font-unique text-white">Tech Stack</h2>
+      <div className="container mx-auto px-6 text-center mb-16">
+        <h2 className="text-4xl font-bold font-unique text-white">Tech Stack</h2>
       </div>
       
-      {/* Marquee effect */}
-      <div className="flex space-x-8 overflow-hidden w-full relative">
-        <motion.div
-          className="flex space-x-8 whitespace-nowrap py-4"
-          animate={{ x: [0, -1000] }}
-          transition={{ ease: "linear", duration: 20, repeat: Infinity }}
-        >
-          {/* Double the array for seamless loop */}
-          {[...technologies, ...technologies, ...technologies].map((tech, i) => (
-            <div 
-              key={i} 
-              className="px-6 py-3 bg-crimson/20 border border-crimson/50 rounded-full text-lg font-medium text-gray-200 hover:text-primary hover:border-primary transition-colors cursor-default backdrop-blur-md shadow-lg"
-            >
-              {tech}
-            </div>
-          ))}
-        </motion.div>
+      <div className="flex flex-col gap-16 w-full max-w-5xl mx-auto">
+        <div>
+          <h3 className="text-xl font-mono text-primary text-center mb-8 tracking-widest uppercase text-sm">Web Technologies</h3>
+          <div style={{ height: '80px', position: 'relative', overflow: 'hidden', maskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)'}}>
+            <LogoLoop
+              logos={webLogos}
+              speed={50}
+              direction="left"
+              logoHeight={60}
+              gap={100}
+              hoverSpeed={10}
+              scaleOnHover
+              ariaLabel="Web Technologies"
+            />
+          </div>
+        </div>
+        
+        <div>
+          <h3 className="text-xl font-mono text-primary text-center mb-8 tracking-widest uppercase text-sm">Programming Languages</h3>
+          <div style={{ height: '80px', position: 'relative', overflow: 'hidden', maskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)'}}>
+            <LogoLoop
+              logos={progLogos}
+              speed={50}
+              direction="right"
+              logoHeight={60}
+              gap={100}
+              hoverSpeed={10}
+              scaleOnHover
+              ariaLabel="Programming Languages"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

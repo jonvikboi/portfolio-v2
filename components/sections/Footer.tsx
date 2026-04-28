@@ -2,10 +2,12 @@
 
 import { Mail, Send, Link as LinkIcon, User } from "lucide-react";
 import { GlassDock } from "@/components/ui/glass-dock";
+import { InvertedCorners } from "@/components/ui/inverted-corners";
 
 export default function Footer() {
   return (
-    <footer className="bg-black/80 border-t border-crimson/30 pt-16 pb-8 relative z-10 mt-20 backdrop-blur-xl shadow-2xl">
+    <footer className="bg-black/80 pt-16 pb-8 relative z-10 mt-[80px] backdrop-blur-xl shadow-2xl">
+      <InvertedCorners top className="bg-black/80 backdrop-blur-xl" />
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           <div>
