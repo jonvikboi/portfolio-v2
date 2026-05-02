@@ -35,7 +35,7 @@ export default function Certifications() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 relative z-10 bg-burgundy/30 backdrop-blur-md shadow-2xl">
+    <section ref={sectionRef} className="py-20 relative z-10 bg-burgundy/30 backdrop-blur-md shadow-2xl w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-7xl mx-auto rounded-[2rem] md:rounded-[3rem] border-2 border-primary/50 shadow-[0_0_30px_rgba(244,12,63,0.15)] my-20">
       <div className="container mx-auto px-6 max-w-4xl">
         <h2 className="text-3xl font-bold font-unique mb-12 text-center">Certifications</h2>
         

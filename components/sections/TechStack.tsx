@@ -6,21 +6,21 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import LogoLoop from "@/components/ui/logo-loop";
 
 const webLogos = [
-  { src: "/icons/html.png", alt: "HTML" },
-  { src: "/icons/css.png", alt: "CSS" },
-  { src: "/icons/js.png", alt: "JavaScript" },
-  { src: "/icons/ts.png", alt: "TypeScript" },
-  { src: "/icons/tailwind.png", alt: "Tailwind CSS" },
-  { src: "/icons/react.png", alt: "React" },
-  { src: "/icons/next.png", alt: "Next.js" },
+  { src: "/icons/html.png", alt: "HTML", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
+  { src: "/icons/css.png", alt: "CSS", href: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
+  { src: "/icons/js.png", alt: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+  { src: "/icons/ts.png", alt: "TypeScript", href: "https://www.typescriptlang.org/" },
+  { src: "/icons/tailwind.png", alt: "Tailwind CSS", href: "https://tailwindcss.com/" },
+  { src: "/icons/react.png", alt: "React", href: "https://react.dev/" },
+  { src: "/icons/next.png", alt: "Next.js", href: "https://nextjs.org/" },
 ];
 
 const progLogos = [
-  { src: "/icons/python.png", alt: "Python" },
-  { src: "/icons/c.png", alt: "C" },
-  { src: "/icons/c++.png", alt: "C++" },
-  { src: "/icons/java.png", alt: "Java" },
-  { src: "/icons/shell.png", alt: "Shell" },
+  { src: "/icons/python.png", alt: "Python", href: "https://python.org" },
+  { src: "/icons/c.png", alt: "C", href: "https://devdocs.io/c/" },
+  { src: "/icons/c++.png", alt: "C++", href: "https://devdocs.io/cpp/" },
+  { src: "/icons/java.png", alt: "Java", href: "https://docs.oracle.com/en/java/" },
+  { src: "/icons/shell.png", alt: "Shell", href: "https://www.shellscript.sh/" },
 ];
 
 export default function TechStack() {
@@ -44,7 +44,7 @@ export default function TechStack() {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-20 relative overflow-hidden z-10 bg-black/40 backdrop-blur-lg">
+    <section ref={containerRef} className="py-20 relative z-10 bg-black/40 backdrop-blur-lg w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-7xl mx-auto rounded-[2rem] md:rounded-[3rem] border-2 border-primary/50 shadow-[0_0_30px_rgba(244,12,63,0.15)] my-20">
       <div className="container mx-auto px-6 text-center mb-16">
         <h2 className="text-4xl font-bold font-unique text-white">Tech Stack</h2>
       </div>

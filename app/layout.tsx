@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import BallpitWrapper from "@/components/BallpitWrapper";
-import SplashScreen from "@/components/SplashScreen";
 import PageTransition from "@/components/PageTransition";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Noto_Sans, Playfair_Display } from "next/font/google";
@@ -27,7 +26,6 @@ export default function RootLayout({
       <body className="antialiased selection:bg-primary selection:text-white relative bg-background">
         <SmoothScroll>
           <CustomCursor />
-          <SplashScreen />
           <div className="hollow-frame" />
           <div className="fixed inset-0 z-0 pointer-events-none">
             <BallpitWrapper />
