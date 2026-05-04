@@ -7,9 +7,12 @@ const Certifications = dynamic(() => import("@/components/sections/Certification
 const Goals = dynamic(() => import("@/components/sections/Goals"), { ssr: true });
 const Footer = dynamic(() => import("@/components/sections/Footer"), { ssr: true });
 
+import Navbar from "@/components/Navbar";
+
 export default function Home() {
   return (
     <main className="flex flex-col min-h-screen w-full relative">
+      <Navbar />
       <Hero />
       <TechStack />
       <Projects />

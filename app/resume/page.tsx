@@ -8,7 +8,7 @@ export default function ResumePage() {
   return (
     <main className="h-screen w-full flex flex-col bg-background/80 backdrop-blur-sm relative z-10">
       <div className="absolute top-6 left-6 z-50">
-        <Link href="/">
+        <Link href="/#hero">
           <motion.div 
             whileHover={{ x: -5 }}
             className="flex items-center gap-2 px-6 py-3 bg-black/60 backdrop-blur-md border border-crimson/30 rounded-full text-white hover:text-primary hover:border-primary transition-colors cursor-pointer hoverable"

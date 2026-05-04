@@ -75,7 +75,7 @@ export default function Hero() {
   }, [text, isDeleting, roleIndex]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-10 overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-24 pb-10 overflow-hidden">
       <div className="container mx-auto px-6 z-10 relative">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-16 w-full max-w-6xl mx-auto">
 
