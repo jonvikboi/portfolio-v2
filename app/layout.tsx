@@ -12,8 +12,13 @@ const playfairDisplayHeading = Playfair_Display({ subsets: ['latin'], variable: 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: "Interactive Developer Portfolio",
-  description: "Highly interactive 3D developer portfolio",
+  title: "Joshua Zachary Jose | Portfolio",
+  description: "Joshua Zachary Jose | Portfolio",
+  icons: {
+    icon: "/icons/jzj.png",
+    shortcut: "/icons/jzj.png",
+    apple: "/icons/jzj.png",
+  },
 };
 
 export default function RootLayout({

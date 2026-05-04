@@ -16,31 +16,31 @@ export default function Footer() {
               Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
             </p>
             <div className="flex gap-4 pt-6">
-              <GlassDock 
+              <GlassDock
                 items={[
-                  { title: 'Github', icon: LinkIcon, href: '#' },
-                  { title: 'LinkedIn', icon: User, href: '#' },
-                  { title: 'Email', icon: Mail, href: 'mailto:hello@example.com' },
-                ]} 
+                  { title: 'Github', icon: LinkIcon, href: 'https://github.com/jonvikboi' },
+                  { title: 'LinkedIn', icon: User, href: 'https://linkedin.com/in/joshuazacharyjose' },
+                  { title: 'Email', icon: Mail, href: 'mailto:joshmonunew@gmail.com' },
+                ]}
               />
             </div>
           </div>
-          
+
           <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
             <div className="grid grid-cols-2 gap-4">
-              <input 
-                type="text" 
-                placeholder="Name" 
+              <input
+                type="text"
+                placeholder="Name"
                 className="w-full bg-burgundy/30 border border-crimson/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors backdrop-blur-md shadow-inner"
               />
-              <input 
-                type="email" 
-                placeholder="Email" 
+              <input
+                type="email"
+                placeholder="Email"
                 className="w-full bg-burgundy/30 border border-crimson/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors backdrop-blur-md shadow-inner"
               />
             </div>
-            <textarea 
-              placeholder="Message" 
+            <textarea
+              placeholder="Message"
               rows={4}
               className="w-full bg-burgundy/30 border border-crimson/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors resize-none backdrop-blur-md shadow-inner"
             ></textarea>
@@ -49,9 +49,9 @@ export default function Footer() {
             </button>
           </form>
         </div>
-        
+
         <div className="text-center text-sm text-gray-500 pt-8 border-t border-crimson/20">
-          <p>© {new Date().getFullYear()} Joshua Zachary Jose. Built with Next.js & Three.js.</p>
+          <p>© {new Date().getFullYear()} Joshua Zachary Jose</p>
         </div>
       </div>
     </footer>
