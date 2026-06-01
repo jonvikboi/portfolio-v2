@@ -115,8 +115,7 @@
       {[
         repo?.language || 'TypeScript',
         'Next.js',
-        'Tailwind CSS',
-        'Three.js'
+        'Tailwind CSS'
       ].map(function(tag, i) {
         return (
           <div key={tag + '-' + i} style={{
@@ -182,9 +181,9 @@
   <div style={{ display: 'flex', gap: 24, width: '100%', alignItems: 'stretch', zIndex: 10 }}>
     {/* Feature 1 */}
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: 10, background: 'rgba(255,255,255,0.03)', padding: '20px 24px', borderRadius: 16, border: '1px solid rgba(244,12,63,0.15)', justifyContent: 'flex-start' }}>
-      <div style={{ display: 'flex', fontSize: 17, fontWeight: 700, color: '#ffb3c1' }}>Interactive WebGL</div>
+      <div style={{ display: 'flex', fontSize: 17, fontWeight: 700, color: '#ffb3c1' }}>Modern Design</div>
       <div style={{ display: 'flex', fontSize: 13, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>
-        Real-time physics simulation using Three.js and react-three-fiber for a dynamic background.
+        Curated harmonious color palette with dynamic backgrounds and sleek layout structure.
       </div>
     </div>
     

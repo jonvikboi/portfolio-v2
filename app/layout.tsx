@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
-import BallpitWrapper from "@/components/BallpitWrapper";
 import PageTransition from "@/components/PageTransition";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Noto_Sans, Playfair_Display } from "next/font/google";
 import { cn } from "@/lib/utils";
+import DotGridWrapper from "@/components/DotGridWrapper";
 
 const playfairDisplayHeading = Playfair_Display({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -32,10 +32,8 @@ export default function RootLayout({
         <SmoothScroll>
           <CustomCursor />
           <div className="hollow-frame" />
-          <div className="fixed inset-0 z-0 pointer-events-none">
-            <BallpitWrapper />
-            {/* Dark overlay to mute the ballpit and reduce distraction */}
-            <div className="absolute inset-0 bg-background/25 backdrop-blur-[3px] pointer-events-none" />
+          <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+            <DotGridWrapper />
           </div>
           <PageTransition>
             {children}
