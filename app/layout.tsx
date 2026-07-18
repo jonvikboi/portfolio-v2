@@ -5,7 +5,7 @@ import PageTransition from "@/components/PageTransition";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Noto_Sans, Playfair_Display } from "next/font/google";
 import { cn } from "@/lib/utils";
-import DotGridWrapper from "@/components/DotGridWrapper";
+import LightfallWrapper from "@/components/LightfallWrapper";
 
 const playfairDisplayHeading = Playfair_Display({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -33,7 +33,7 @@ export default function RootLayout({
           <CustomCursor />
           <div className="hollow-frame" />
           <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-            <DotGridWrapper />
+            <LightfallWrapper />
           </div>
           <PageTransition>
             {children}
