@@ -1,74 +1,81 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 
+/**
+ * Dot cursor that follows with a spring. Grows into a ring over links/buttons,
+ * and into a labelled disc over any element with `data-cursor="Label"`.
+ */
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const x = useMotionValue(-100);
+  const y = useMotionValue(-100);
+  const sx = useSpring(x, { stiffness: 600, damping: 45, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 600, damping: 45, mass: 0.4 });
+  const [enabled, setEnabled] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [state, setState] = useState<{ hover: boolean; label: string | null }>({ hover: false, label: null });
 
   useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    setEnabled(true);
+
+    const move = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+      setVisible(true);
     };
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        target.tagName.toLowerCase() === "button" ||
-        target.tagName.toLowerCase() === "a" ||
-        target.closest("button") ||
-        target.closest("a") ||
-        target.classList.contains("hoverable")
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
+    const over = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      const labelled = t.closest<HTMLElement>("[data-cursor]");
+      const interactive = t.closest("a, button, [role='button'], input, textarea");
+      setState({ label: labelled?.dataset.cursor ?? null, hover: !!(labelled || interactive) });
     };
+    const leave = () => setVisible(false);
 
-    window.addEventListener("mousemove", updateMousePosition);
-    window.addEventListener("mouseover", handleMouseOver);
-
+    document.addEventListener("mousemove", move);
+    document.addEventListener("mouseover", over);
+    document.documentElement.addEventListener("mouseleave", leave);
     return () => {
-      window.removeEventListener("mousemove", updateMousePosition);
-      window.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mousemove", move);
+      document.removeEventListener("mouseover", over);
+      document.documentElement.removeEventListener("mouseleave", leave);
     };
-  }, []);
+  }, [x, y]);
 
-  // Use a transparent border vs solid background based on hover state
-  const variants = {
-    default: {
-      x: mousePosition.x - 8,
-      y: mousePosition.y - 8,
-      height: 16,
-      width: 16,
-      backgroundColor: "var(--primary)",
-      border: "0px solid var(--primary)",
-      mixBlendMode: "normal" as any,
-    },
-    hover: {
-      x: mousePosition.x - 24,
-      y: mousePosition.y - 24,
-      height: 48,
-      width: 48,
-      backgroundColor: "rgba(244, 12, 63, 0.1)", // transparent primary
-      border: "2px solid var(--primary)",
-      mixBlendMode: "difference" as any,
-    },
-  };
+  if (!enabled) return null;
+
+  const size = state.label ? 84 : state.hover ? 44 : 10;
+  const ring = state.hover && !state.label;
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] hidden md:block"
-      variants={variants}
-      animate={isHovering ? "hover" : "default"}
-      transition={{
-        type: "spring",
-        stiffness: 500,
-        damping: 28,
-        mass: 0.5,
-      }}
-    />
+    <motion.div className="pointer-events-none fixed left-0 top-0 z-[9999]" style={{ x: sx, y: sy }}>
+      <motion.div
+        className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-solid border-primary"
+        animate={{
+          width: size,
+          height: size,
+          opacity: visible ? 1 : 0,
+          backgroundColor: ring ? "rgba(244,12,63,0)" : "rgba(244,12,63,1)",
+          borderWidth: ring ? 1 : 0,
+        }}
+        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+      >
+        <AnimatePresence>
+          {state.label && (
+            <motion.span
+              key={state.label}
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.6 }}
+              transition={{ duration: 0.25 }}
+              className="text-[11px] font-medium uppercase tracking-[0.12em] text-white"
+            >
+              {state.label}
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 }

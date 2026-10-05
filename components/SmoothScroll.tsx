@@ -13,15 +13,26 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       smoothWheel: true,
       touchMultiplier: 2,
     });
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    // Lock scrolling until the intro loader has finished.
+    let onLoaded: (() => void) | undefined;
+    if (!document.documentElement.classList.contains("loaded")) {
+      lenis.stop();
+      onLoaded = () => lenis.start();
+      window.addEventListener("app:loaded", onLoaded, { once: true });
     }
 
-    requestAnimationFrame(raf);
+    let id = 0;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      id = requestAnimationFrame(raf);
+    };
+    id = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(id);
+      if (onLoaded) window.removeEventListener("app:loaded", onLoaded);
       lenis.destroy();
     };
   }, []);

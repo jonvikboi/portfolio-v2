@@ -3,65 +3,39 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import { EASE, EASE_IN_OUT } from "@/lib/motion";
 
-const columns = 5;
-
+/** Single curtain: drops in on exit, lifts away on enter, with a crimson leading edge. */
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
     <AnimatePresence mode="wait">
-      <motion.div 
-        key={pathname}
-        initial="initial"
-        animate="enter"
-        exit="exit"
-        className="min-h-screen w-full flex flex-col relative"
-      >
-        {/* Staggered stack overlay */}
-        <div className="fixed inset-0 pointer-events-none z-[100] flex">
-          {[...Array(columns)].map((_, i) => {
-            const stackColors = ["bg-primary", "bg-secondary", "bg-crimson", "bg-burgundy", "bg-background"];
-            return (
-              <motion.div
-                key={i}
-                variants={{
-                  initial: { top: 0, height: "100%" },
-                  enter: { 
-                    top: "100%", height: "100%",
-                    transition: { duration: 0.6, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }
-                  },
-                  exit: { 
-                    top: 0, height: "100%",
-                    transition: { duration: 0.6, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }
-                  }
-                }}
-                className={`w-full relative border-r border-primary/20 shadow-2xl ${stackColors[i]}`}
-              />
-            );
-          })}
-        </div>
-        
-        {/* Content */}
+      <motion.div key={pathname} initial="initial" animate="enter" exit="exit" className="relative flex min-h-screen w-full flex-col">
         <motion.div
-          custom={pathname}
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-[100] bg-[#140004]"
           variants={{
-            initial: { opacity: 0, y: 40 },
-            enter: { 
-              opacity: 1, y: 0, 
-              transition: { duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] },
-              transitionEnd: { transform: "none", filter: "none" }
-            },
-            exit: (currentPath: string) => ({ 
-              opacity: 0, 
-              y: currentPath === "/resume" ? 0 : -40, 
-              transition: { 
-                duration: currentPath === "/resume" ? 0.8 : 0.4, 
-                ease: [0.22, 1, 0.36, 1] 
-              } 
-            })
+            initial: { y: "0%" },
+            enter: { y: "-100%", transition: { duration: 0.9, ease: EASE_IN_OUT, delay: 0.05 } },
+            exit: { y: "0%", transition: { duration: 0.7, ease: EASE_IN_OUT } },
           }}
-          className="flex-grow w-full"
+        >
+          <div className="absolute inset-x-0 bottom-0 h-[2px] bg-primary" />
+        </motion.div>
+
+        <motion.div
+          className="w-full flex-grow"
+          variants={{
+            initial: { opacity: 0, y: 24 },
+            enter: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 1, delay: 0.35, ease: EASE },
+              transitionEnd: { transform: "none" },
+            },
+            exit: { opacity: 0, y: -24, transition: { duration: 0.5, ease: EASE_IN_OUT } },
+          }}
         >
           {children}
         </motion.div>

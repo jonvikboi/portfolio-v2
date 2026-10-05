@@ -1,10 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ExternalLink } from "lucide-react";
-import Link from "next/link";
+import HoverIndex from "@/components/ui/HoverIndex";
+import { SectionHead, SplitLines } from "@/components/ui/Reveal";
 
 export const certifications = [
   {
@@ -42,59 +39,26 @@ export const certifications = [
 ];
 
 export default function Certifications() {
-  const sectionRef = useRef(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.fromTo(
-      cardsRef.current,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 75%",
-        },
-      }
-    );
-  }, []);
-
   return (
-    <section id="certifications" ref={sectionRef} className="py-20 relative z-10 bg-burgundy/30 backdrop-blur-md shadow-2xl w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-6xl mx-auto rounded-[2rem] md:rounded-[3rem] border-2 border-primary/50 shadow-[0_0_30px_rgba(244,12,63,0.15)] my-20">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold font-unique mb-12 text-center">Certifications</h2>
-
-        <div className="grid md:grid-cols-2 gap-10">
-          {certifications.map((cert, i) => (
-            <div
-              key={i}
-              ref={(el: any) => cardsRef.current[i] = el}
-              className="group flex flex-col bg-black/60 rounded-3xl overflow-hidden border border-crimson/20 hover:border-secondary/50 transition-all duration-300 hover:-translate-y-2 backdrop-blur-md shadow-lg"
-            >
-              <div className="relative h-64 w-full bg-crimson/10 overflow-hidden">
-                <img src={cert.image} alt={cert.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-              </div>
-
-              <div className="p-8 flex flex-col flex-grow">
-                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{cert.name}</h3>
-                <p className="text-gray-400 mb-6">{cert.issuer}</p>
-
-                <div className="mt-auto flex items-center justify-between pt-6 border-t border-crimson/20">
-                  <span className="text-secondary font-mono text-sm px-3 py-1 bg-crimson/20 rounded-full">{cert.date}</span>
-                  <Link href={`/certifications/${cert.id}`} className="flex items-center gap-2 text-sm font-bold hover:text-primary transition-colors">
-                    <ExternalLink size={18} /> View PDF
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+    <section id="certifications" className="relative z-10 px-5 py-28 md:px-10 md:py-40">
+      <SectionHead index="03" label="Certifications" meta={`${certifications.length} credentials`} />
+      <SplitLines
+        as="h2"
+        className="mt-14 text-5xl font-medium leading-[0.95] tracking-[-0.04em] md:mt-20 md:text-7xl"
+        lines={[<>Always <span className="font-heading italic font-normal text-primary">learning</span></>]}
+      />
+      <div className="mt-16 md:mt-24">
+        <HoverIndex
+          columns={["Credential", "Issuer", "Year"]}
+          items={certifications.map((c) => ({
+            title: c.name,
+            meta: [c.issuer],
+            year: c.date,
+            href: `/certifications/${c.id}`,
+            image: c.image,
+            cursor: "Open",
+          }))}
+        />
       </div>
     </section>
   );
