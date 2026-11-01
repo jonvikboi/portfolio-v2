@@ -300,11 +300,11 @@ const Lightfall: React.FC<LightfallProps> = ({
       }
     };
     if (mouseInteraction) {
-      canvas.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
     }
 
     const loop = (t: number) => {
-      rafRef.current = requestAnimationFrame(loop);
+      if (paused) return;
       uniforms.iTime.value = t * 0.001;
       if (mouseDampening > 0) {
         if (!lastTimeRef.current) lastTimeRef.current = t;
@@ -320,19 +320,20 @@ const Lightfall: React.FC<LightfallProps> = ({
       } else {
         lastTimeRef.current = t;
       }
-      if (!paused && programRef.current && meshRef.current) {
+      if (programRef.current && meshRef.current) {
         try {
           renderer.render({ scene: meshRef.current });
         } catch (e) {
           console.error(e);
         }
       }
+      rafRef.current = requestAnimationFrame(loop);
     };
-    rafRef.current = requestAnimationFrame(loop);
+    if (!paused) rafRef.current = requestAnimationFrame(loop);
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      if (mouseInteraction) canvas.removeEventListener('pointermove', onPointerMove);
+      if (mouseInteraction) window.removeEventListener('pointermove', onPointerMove);
       ro.disconnect();
       if (canvas.parentElement === container) {
         container.removeChild(canvas);

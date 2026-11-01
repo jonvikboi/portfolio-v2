@@ -1,10 +1,27 @@
 export const SITE = {
   name: "Joshua Zachary Jose",
+  shortName: "Joshua Jose",
+  monogram: "JZJ",
   role: "Full-stack developer",
+  tagline: "Creative Engineer · Full-Stack Architect · 3D & AI Builder",
   email: "joshmonunew@gmail.com",
   github: "https://github.com/jonvikboi",
   linkedin: "https://linkedin.com/in/joshuazacharyjose",
+  location: "India",
+  coordinates: "10.8505° N, 76.2711° E",
   timeZone: "Asia/Kolkata",
-  timeZoneLabel: "IST",
+  timeZoneLabel: "IST (UTC+5:30)",
   available: ["Internships & freelance", "2026"],
+  roles: [
+    "Full-stack developer",
+    "Aspiring software engineer",
+    "Creative WebGL & 3D builder",
+    "Applied AI developer",
+  ],
+  stats: [
+    { value: "03+", label: "Flagship Systems", detail: "AI, Full-Stack & WebGL" },
+    { value: "12+", label: "Core Technologies", detail: "TypeScript to C++ & Python" },
+    { value: "04", label: "Verified Credentials", detail: "UI/UX, Networks, AI & Python" },
+    { value: "60fps", label: "Motion Standard", detail: "Shader & Spring Driven" },
+  ],
 };

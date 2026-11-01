@@ -14,8 +14,8 @@ export function useLoaded() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     if (document.documentElement.classList.contains("loaded")) {
-      setLoaded(true);
-      return;
+      const frame = window.requestAnimationFrame(() => setLoaded(true));
+      return () => window.cancelAnimationFrame(frame);
     }
     const on = () => setLoaded(true);
     window.addEventListener("app:loaded", on);
@@ -30,6 +30,12 @@ export function scrollToId(id: string) {
   if (!el) return;
   const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement | number, o?: object) => void } }).__lenis;
   const target = id === "hero" ? 0 : el;
-  if (lenis) lenis.scrollTo(target, { duration: 1.6, easing: (t: number) => 1 - Math.pow(1 - t, 4) });
-  else el.scrollIntoView({ behavior: "smooth" });
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) {
+    el.scrollIntoView({ behavior: "auto", block: "start" });
+  } else if (lenis) {
+    lenis.scrollTo(target, { duration: 1.6, easing: (t: number) => 1 - Math.pow(1 - t, 4) });
+  } else {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
 }
